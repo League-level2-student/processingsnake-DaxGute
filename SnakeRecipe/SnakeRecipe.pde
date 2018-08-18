@@ -79,22 +79,21 @@ void draw() {
   drawSnake();
   move();
   collision();
+  checkBoundaries();
 }
 
 
 // 13. Complete the drawFood method below. (Hint: each piece of food should be a 10 by 10 rectangle).
 
 void drawFood() {
-  rect(100, 400, 10, 10);
-  rect(400, 100, 10, 10);
-  rect(100, 100, 10, 10);
+  rect(foodX, foodY, 10, 10);
 }
 
 
 //14. Draw the snake head (use a 10 by 10 rectangle)
 
 void drawSnake() {
-  rect(250, 250, 10, 10);
+  rect(head.getX(), head.getY(), 10, 10);
 
   //test your code
 }
@@ -110,19 +109,26 @@ void move() {
   switch(direct) {
   case "up":
     // move head up here 
-    head.setY(head.getY() + 10);
+    head.setY(head.getY() - 10);
+    
     break;
   case "down":
     // move head down here 
-      head.setY(head.getY() - 10);
+   
+      head.setY(head.getY() + 10);
+    
     break;
   case "left":
    // figure it out 
-     head.setX(head.getX() + 10);
+   
+     head.setX(head.getX() - 10);
+   
     break;
   case "right":
+ 
     // mystery code goes here 
-     head.setX(head.getX() - 10);
+     head.setX(head.getX() + 10);
+  
     break;
   }
   
@@ -136,13 +142,13 @@ void move() {
 
 void keyPressed() {
   if (key == CODED){
-    if (keyCode == UP) {
+    if (keyCode == UP && direct != "down") {
       direct = "up";
-    }else if (keyCode == DOWN) {
+    }else if (keyCode == DOWN && direct != "up") {
       direct = "down";
-    }else if (keyCode == LEFT) {
+    }else if (keyCode == LEFT && direct != "right") {
       direct = "left";
-    }else if (keyCode == RIGHT) {
+    }else if (keyCode == RIGHT && direct != "left") {
       direct = "right";
     }
   }
@@ -156,11 +162,11 @@ void checkBoundaries() {
   if(head.getY() < 0 ){
     head.setY(500);
   }else if(head.getY() > 500){
-    head.setY(500);
+    head.setY(0);
   }else if(head.getX() < 0 ){
     head.setX(500);
   }else if(head.getX() > 500){
-    head.setX(500);
+    head.setX(0);
   }
 }
 
@@ -173,7 +179,10 @@ void checkBoundaries() {
 // 21. Complete the missing parts of the collision method below.
 
 void collision() {
-
+ if (foodX == head.getX() && foodY == head.getY());
+   score++;
+   int foodX = ((int)random(50)*10);
+    int foodY = ((int)random(50)*10);
   // If the segment is colliding with a piece of food...
      // Increase the amount of food eaten and set foodX and foodY to new random locations.
 }
